@@ -132,7 +132,7 @@
     function buildURL(page, original){
         var uniqueName = getQueryVariable("uniquename");
         if (uniqueName) {
-            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&uniquename" + uniqueName;
+            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&uniquename=" + uniqueName;
         }else{
             return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original;
         }
