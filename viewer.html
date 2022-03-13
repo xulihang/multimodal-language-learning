@@ -123,7 +123,7 @@
             alert("到底了");
             return;
         }
-        
+        panelIndex = -1;
         window.location.href = buildURL(Math.max(1, index),getOriginal());
     }
     
@@ -135,7 +135,7 @@
             alert("到底了");
             return;
         }
-        
+        panelIndex = 0;
         window.location.href = buildURL(newPage,getOriginal());
     }
     
@@ -156,9 +156,9 @@
     function buildURL(page, original){
         var uniqueName = getQueryVariable("uniquename");
         if (uniqueName) {
-            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&uniquename=" + uniqueName + "&panelMode="+panelMode;
+            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&uniquename=" + uniqueName + "&panelMode="+panelMode+ "&panelIndex="+panelIndex;
         }else{
-            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&panelMode="+panelMode;
+            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&panelMode="+panelMode+ "&panelIndex="+panelIndex;
         }
         
     
@@ -205,6 +205,15 @@
     
     function imageLoaded(){
         console.log("image loaded.");
+        var pIndex = getQueryVariable("panelIndex");
+        if (pIndex) {
+            if (pIndex == -1) {
+                panelIndex = data["images"][index]["panels"].length - 2;
+            }else {
+                panelIndex = pIndex - 1;
+            }
+            
+        }
         if (getPanelMode() == "true") {
             loadPanel(1);
         }
