@@ -4,7 +4,7 @@
 <head>
     <title>在线漫画阅读器</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1" />
     <style>
     .fullpage {
         width: 100%;
@@ -150,7 +150,7 @@
     
     function onPanelmodeChanged(){
         panelMode = document.getElementById("panelModeChk").checked;
-        window.location.href = buildURL(index,getOriginal());
+        window.location.href = buildURL((index+1),getOriginal());
     }
     
     function buildURL(page, original){
@@ -220,6 +220,7 @@
     
     function loadPanel(offset){
         panelMode = true;
+        document.getElementById("panelModeChk").checked = true;
         document.getElementById("image").style.display = "none";
         document.getElementById("panelCanvas").style.display = "block";
         var panels = data["images"][index]["panels"];
