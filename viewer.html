@@ -105,7 +105,7 @@
             return;
         }
         
-        window.location.href = window.location.origin +window.location.pathname + "?page=" + Math.max(1, index) + "&original="+getOriginal();
+        window.location.href = buildURL(Math.max(1, index),getOriginal());
     }
     
     function next(){
@@ -117,7 +117,7 @@
             return;
         }
         
-        window.location.href = window.location.origin +window.location.pathname + "?page=" + newPage + "&original="+getOriginal();
+        window.location.href = buildURL(newPage,getOriginal());
     }
     
     function onOriginalChanged(){
@@ -126,7 +126,18 @@
         if (document.getElementById("originalChk").checked == true){
             original = "yes";
         }
-        window.location.href = window.location.origin +window.location.pathname + "?page=" + (index+1) + "&original="+original;
+        window.location.href = buildURL((index+1),original);
+    }
+    
+    function buildURL(page, original){
+        var uniqueName = getQueryVariable("uniquename");
+        if (uniqueName) {
+            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&uniquename" + uniqueName;
+        }else{
+            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original;
+        }
+        
+    
     }
     
     function getOriginal(){
