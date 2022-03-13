@@ -12,6 +12,7 @@
     <div class="control" style="width:100%;">
         <button onclick="previous()" style="height:20px;"><-</button>
         <button onclick="next()" style="height:20px;float:right;">-></button>
+        <input id="originalChk" type="CheckBox" name="original" value="original" onChange="onOriginalChanged()" />原图
     </div>
     
     <img id="image" alt="image" src="" />
@@ -35,11 +36,20 @@
                 console.log(xhr.status);
                 console.log(xhr.responseText);
                 data = JSON.parse(xhr.responseText);
-                loadImage(0);
+                loadImage(getPageIndex());
                 console.log(data);
             }
         }
         xhr.send();
+    }
+    
+    function getPageIndex(){
+        var page = getQueryVariable("page");
+        if (page == "") {
+            return 0;
+        }else{
+            return parseInt(page - 1);
+        }
     }
     
     function getURL(){
@@ -69,20 +79,66 @@
     function loadImage(offset){
         var images = data["images"];
         index = index + offset;
-        index = Math.min(images.length - 1, index);
-        index = Math.max(0, index);
-        var imgUrl = root + "/" + images[index];
+        index = handleBounds(index);
+        var imgUrl;
+        
+        var original = getOriginal();
+        if (original == "yes"){
+            imgUrl = root + "/" + images[index];
+        } else{
+            imgUrl = root + "/out/" + images[index];
+        }
+
         document.getElementById("image").src=imgUrl;
     }
     
+    function handleBounds(index) {
+        var images = data["images"];
+        index = Math.min(images.length - 1, index);
+        index = Math.max(0, index);
+        return index;
+    }
+    
     function previous(){
-        loadImage(-1);
+        if (index<=0){
+            alert("到底了");
+            return;
+        }
+        
+        window.location.href = window.location.origin +window.location.pathname + "?page=" + Math.max(1, index) + "&original="+getOriginal();
     }
     
     function next(){
-        loadImage(1);
+        var maxPage = data["images"].length;
+        var newPage = index + 1 + 1;
+        
+        if (newPage>maxPage){
+            alert("到底了");
+            return;
+        }
+        
+        window.location.href = window.location.origin +window.location.pathname + "?page=" + newPage + "&original="+getOriginal();
     }
     
+    function onOriginalChanged(){
+        console.log("changed.");
+        var original = "no";
+        if (document.getElementById("originalChk").checked == true){
+            original = "yes";
+        }
+        window.location.href = window.location.origin +window.location.pathname + "?page=" + (index+1) + "&original="+original;
+    }
+    
+    function getOriginal(){
+        var original = getQueryVariable("original");
+        if (original == "yes"){
+            document.getElementById("originalChk").checked = true;
+        } else{
+            original = "no";
+            document.getElementById("originalChk").checked = false;
+        }
+        return original;
+    }
     </script>
 </body>
 
