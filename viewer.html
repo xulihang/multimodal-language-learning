@@ -5,26 +5,45 @@
     <title>在线漫画阅读器</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <style>
+    .fullpage {
+        width: 100%;
+        height: 100%;
+    }
+    </style>
 </head>
 
 <body>
 
     <div class="control" style="width:100%;">
-        <button onclick="previous()" style="height:20px;"><-</button>
-        <button onclick="next()" style="height:20px;float:right;">-></button>
+        <button onclick="previousPage()" style="height:20px;"><--</button>
+        <button onclick="previousPanel()" style="height:20px;"><-</button>
+        <button onclick="nextPage()" style="height:20px;float:right;">--></button>
+        <button onclick="nextPanel()" style="height:20px;float:right;">-></button>
         <input id="originalChk" type="CheckBox" name="original" value="original" onChange="onOriginalChanged()" />原图
     </div>
+    <div class="fullpage">
+        <img id="image" alt="image" src="" style="max-width:100%;"/>
+        <canvas id="panelCanvas" style="display:none;margin: 0 auto;max-width:100%;"></canvas>
+
+        
+    </div>
     
-    <img id="image" alt="image" src="" />
     
     <div class="control" style="width:100%;">
-        <button onclick="previous()" style="height:20px;"><-</button>
-        <button onclick="next()" style="height:20px;float:right;">-></button>
+        <button onclick="previousPage()" style="height:20px;"><--</button>
+        <button onclick="previousPanel()" style="height:20px;"><-</button>
+        <button onclick="nextPage()" style="height:20px;float:right;">--></button>
+        <button onclick="nextPanel()" style="height:20px;float:right;">-></button>
+        <input id="panelModeChk" type="CheckBox" name="panelmode" value="panelmode" onChange="onPanelmodeChanged()" />分镜模式
     </div>
 
     <script type="text/javascript">
     var data;
     var index = 0;
+    var panelIndex = -1;
+    var panelMode = false;
+    document.getElementById("image").onload = imageLoaded;
     getData();
     
     function getData(){
@@ -84,9 +103,9 @@
         
         var original = getOriginal();
         if (original == "yes"){
-            imgUrl = root + "/" + images[index];
+            imgUrl = root + "/" + images[index]["filename"];
         } else{
-            imgUrl = root + "/out/" + images[index];
+            imgUrl = root + "/out/" + images[index]["filename"];
         }
 
         document.getElementById("image").src=imgUrl;
@@ -99,7 +118,7 @@
         return index;
     }
     
-    function previous(){
+    function previousPage(){
         if (index<=0){
             alert("到底了");
             return;
@@ -108,7 +127,7 @@
         window.location.href = buildURL(Math.max(1, index),getOriginal());
     }
     
-    function next(){
+    function nextPage(){
         var maxPage = data["images"].length;
         var newPage = index + 1 + 1;
         
@@ -129,12 +148,17 @@
         window.location.href = buildURL((index+1),original);
     }
     
+    function onPanelmodeChanged(){
+        panelMode = document.getElementById("panelModeChk").checked;
+        window.location.href = buildURL(index,getOriginal());
+    }
+    
     function buildURL(page, original){
         var uniqueName = getQueryVariable("uniquename");
         if (uniqueName) {
-            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&uniquename=" + uniqueName;
+            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&uniquename=" + uniqueName + "&panelMode="+panelMode;
         }else{
-            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original;
+            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&panelMode="+panelMode;
         }
         
     
@@ -149,6 +173,66 @@
             document.getElementById("originalChk").checked = false;
         }
         return original;
+    }
+    
+    function getPanelMode(){
+        var panelModeEnabled = getQueryVariable("panelMode");
+        if (panelModeEnabled == "true"){
+            document.getElementById("panelModeChk").checked = true;
+        } else{
+            panelModeEnabled = "false";
+            document.getElementById("panelModeChk").checked = false;
+        }
+        return panelModeEnabled;
+    }
+    
+    function drawPanel(panel){
+        var canvas = document.getElementById('panelCanvas');
+        canvas.width = panel.width;
+        canvas.height = panel.height;
+        var context = canvas.getContext('2d');
+        var sourceX = panel.X;
+        var sourceY = panel.Y;
+        var sourceWidth = panel.width;
+        var sourceHeight = panel.height;
+        var destWidth = sourceWidth;
+        var destHeight = sourceHeight;
+        var destX = canvas.width / 2 - destWidth / 2;
+        var destY = canvas.height / 2 - destHeight / 2;
+        var imageObj = document.getElementById("image");
+        context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+    }
+    
+    function imageLoaded(){
+        console.log("image loaded.");
+        if (getPanelMode() == "true") {
+            loadPanel(1);
+        }
+    }
+    
+    function previousPanel(){
+        loadPanel(-1);
+    }
+    
+    function nextPanel(){
+        loadPanel(1);
+    }
+    
+    function loadPanel(offset){
+        panelMode = true;
+        document.getElementById("image").style.display = "none";
+        document.getElementById("panelCanvas").style.display = "block";
+        var panels = data["images"][index]["panels"];
+        panelIndex = panelIndex + offset;
+        if (panelIndex < 0) {
+            previousPage();
+            return;
+        }
+        if (panelIndex > panels.length - 1) {
+            nextPage();
+            return;
+        }
+        drawPanel(panels[panelIndex]);
     }
     </script>
 </body>
