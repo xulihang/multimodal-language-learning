@@ -37,7 +37,33 @@
     </div>
     
     <div class="text">
-    </div>
+    </div
+    
+    <form>
+        <button id="play">播放语音</button>
+        <button id="stop">停止语音</button>
+        <div>
+            <label for="rate">Rate</label><input type="range" min="0.5" max="2" value="1" step="0.1" id="rate">
+            <span class="rate-value">1</span>
+        </div>
+        <div>
+            <label for="pitch">Pitch</label><input type="range" min="0" max="2" value="1" step="0.1" id="pitch">
+            <span class="pitch-value">1</span>
+        </div>
+        原文语音：
+        <select class="source-voice-select"></select>
+        <br/>
+        译文语音：
+        <select class="target-voice-select"></select>
+        <div>
+            <input type="checkbox" id="readsource" name="readsource">
+            <label for="readsource">原文</label>
+            <input type="checkbox" id="readtarget" name="readtarget"
+             checked>
+            <label for="readtarget">译文</label>
+        </div>
+        
+    </form>
 
     <script type="text/javascript">
     var data;
@@ -120,8 +146,10 @@
         var sourceList = images[index]["source"];
         var targetList = images[index]["target"];
         var ol = document.createElement("ol");
+        ol.className = "text-list";
         for (var i=0;i<sourceList.length;i++) {
             var listItem = document.createElement("li");
+            listItem.className = "text-box-item";
             var sourceListItem = document.createElement("li");
             var targetListItem = document.createElement("li");
             sourceListItem.innerText = sourceList[i];
@@ -186,8 +214,6 @@
         }else{
             return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&panelMode="+panelMode+ "&panelIndex="+panelIndex;
         }
-        
-    
     }
     
     function getOriginal(){
@@ -271,6 +297,7 @@
         drawPanel(panels[panelIndex]);
     }
     </script>
+    <script type="text/javascript" src="./tts.js"></script>
 </body>
 
 </html>
