@@ -130,11 +130,11 @@ uniquename: allwashedup
 
 5: ﻿WELL, YOU'LL CLEAN THIS UP BEFORE YOU GO HOME, EVEN IF IT TAKES YOU ALL NIGHT
 
-5: 回家前会把这些清理干净，即使花一整晚的时间！
+5: 回家前把这些清理干净，即使花一整晚的时间！
 
 6: ﻿BUT I HAVE A DATE WITH DAISY THIS EVENING! YOU WOULDN'T WANT ME TO BE TARDY, WOULD YOU?
 
-6: ﻿但我今晚和黛西有个约会！您一直教我不要迟到，对吧？
+6: ﻿但我今晚和黛丝有个约会！您一直教我不要迟到，对吧？
 
 7: ﻿WHAT DO I CARE 7 I'M NOT PAYING YOU OVERTIME FOR THIS! I WON'T PAY YOU AT ALL UNLESS THE WHOLE FACTORY'S SPIC AND SPAN!
 
@@ -157,7 +157,7 @@ uniquename: allwashedup
 
 0: ﻿HAVE A HEART, UNCLE SCROOGE! DAISY WILL KILL ME IF I'M LATE!
 
-0: 求您了，史高治叔叔！如果我迟到了，黛西会讨厌死我的！
+0: 求您了，史高治叔叔！如果我迟到了，黛丝会讨厌死我的！
 
 1: ﻿I KNOW! SNORT! I'M COUNTING ON YOUR FEAR OF HER TO SPEED UP YOUR WORK!
 
@@ -181,7 +181,7 @@ uniquename: allwashedup
 
 6: ﻿FINISHED! AND ONLY TEN MINUTES BEHIND SCHEDULE! I'VE GOT PLENTY OF TIME TO GET CLEANED UP BEFORE I PICK UP DAISY!
 
-6: ﻿完成了！而且只比原定计划晚了十分钟！在接黛西之前，我有足够的时间去梳洗一下！
+6: ﻿完成了！而且只比原定计划晚了十分钟！在接黛丝之前，我有足够的时间去梳洗一下！
 
 7: DON'T RUSH OFF JUST YET, NEPHEW! I WANT YOU TO TAKE THAT TRUCKLOAD OF TRASH TO THE CITY DUMP!
 
@@ -287,7 +287,7 @@ uniquename: allwashedup
 
 3: ﻿YOU DON'T KNOW HOW MISERABLE DAISY WILL MAKE MY LIFE IF I STAND HER UP TONIGHT! SHE'S NOT EXACTLY THE SILENT TYPE!
 
-3: 你不知道如果我今晚放她鸽子，黛西会怎么对我！她可是个母老虎！
+3: 你不知道如果我今晚放她鸽子，黛丝会怎么对我！她可是个母老虎！
 
 4: ﻿YEAH! I KNOW WHAT YOU MEAN! MY WIFE IS A CHAMPIONSHIP NAGGER!
 
@@ -323,7 +323,7 @@ uniquename: allwashedup
 
 12: ﻿BUT IT WILL ALL BE WORTH IT! THIS'LL BE A NIGHT DAISY 7 WILL NEVER FORGET!
 
-12: 这一切都是值得的！这将是黛西永远不会忘记的夜晚！
+12: 这一切都是值得的！这将是黛丝永远不会忘记的夜晚！
 
 7
 
@@ -432,7 +432,7 @@ uniquename: allwashedup
 
 10: ﻿DON'T PANIC, DAISY! WE'LL BE SAFE ONCE WE GET OUTSIDE!
 
-10: ﻿别慌，黛西！到外面就安全了！
+10: ﻿别慌，黛丝！到外面就安全了！
 
 11: ﻿GULP. I WAS WRONG! IT'S EVEN WORSE OUT HERE!
 
@@ -496,4 +496,6 @@ uniquename: allwashedup
 13: ﻿AFTER ALL, A FREE SAMPLE OF DETERGENT IS THE LAST THING HE'D WANT TO SEE RIGHT NOW!
 
 13: 毕竟，他现在最不想看到的就是洗衣粉!
+
+
 
