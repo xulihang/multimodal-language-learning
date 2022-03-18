@@ -25,8 +25,6 @@
     <div class="fullpage">
         <img id="image" alt="image" src="" style="max-width:100%;"/>
         <canvas id="panelCanvas" style="display:none;margin: 0 auto;max-width:100%;"></canvas>
-
-        
     </div>
     
     
@@ -36,6 +34,9 @@
         <button onclick="nextPage()" style="height:20px;float:right;">--></button>
         <button onclick="nextPanel()" style="height:20px;float:right;">-></button>
         <input id="panelModeChk" type="CheckBox" name="panelmode" value="panelmode" onChange="onPanelmodeChanged()" />分镜模式
+    </div>
+    
+    <div class="text">
     </div>
 
     <script type="text/javascript">
@@ -56,6 +57,7 @@
                 console.log(xhr.responseText);
                 data = JSON.parse(xhr.responseText);
                 loadImage(getPageIndex());
+                loadText(index);
                 console.log(data);
             }
         }
@@ -109,6 +111,30 @@
         }
 
         document.getElementById("image").src=imgUrl;
+    }
+    
+    function loadText(offset){
+        var images = data["images"];
+        console.log(images);
+        console.log(index);
+        var sourceList = images[index]["source"];
+        var targetList = images[index]["target"];
+        var ol = document.createElement("ol");
+        for (var i=0;i<sourceList.length;i++) {
+            var listItem = document.createElement("li");
+            var sourceListItem = document.createElement("li");
+            var targetListItem = document.createElement("li");
+            sourceListItem.innerText = sourceList[i];
+            targetListItem.innerText = targetList[i];
+            var ul = document.createElement("ul");
+            ul.appendChild(sourceListItem);
+            ul.appendChild(targetListItem);
+            listItem.appendChild(ul);
+            ol.appendChild(listItem);
+        }
+        
+        var textContainer = document.getElementsByClassName("text")[0];
+        textContainer.appendChild(ol)
     }
     
     function handleBounds(index) {
