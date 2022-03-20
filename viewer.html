@@ -197,6 +197,52 @@
         window.location.href = buildURL(newPage,getOriginal());
     }
     
+    function saveCookie(){
+        console.log("save cookie");
+        document.cookie = "rate=" + rate.value;
+        document.cookie = "pitch=" + pitch.value;
+        document.cookie = "sourceEngine=" + sourceVoiceSelect.selectedIndex;
+        document.cookie = "targetEngine=" +targetVoiceSelect.selectedIndex;
+    }
+    
+    function getCookie(cname)
+    {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) 
+        {
+            var c = ca[i].trim();
+            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    
+    function loadSettings(){
+        console.log("load settings");
+        var pRate = getCookie("rate");
+        var pPitch = getCookie("pitch");
+        var selectedSourceEngineIndex = getCookie("sourceEngine");
+        var selectedTargetEngineIndex = getCookie("targetEngine");
+        console.log(pRate);
+        if (pRate != "") {
+            rate.value = pRate;
+            rateValue.textContent = pRate;
+        }
+        
+        if (pPitch != "") {
+            pitch.value = pPitch;
+            pitchValue.textContent = pPitch;
+        }
+        
+        if (selectedSourceEngineIndex != "") {
+            sourceVoiceSelect.selectedIndex = parseInt(selectedSourceEngineIndex);
+        }
+        
+        if (selectedTargetEngineIndex != "") {
+            targetVoiceSelect.selectedIndex = parseInt(selectedTargetEngineIndex);
+        }
+    }
+    
     function onOriginalChanged(){
         var original = "no";
         if (document.getElementById("originalChk").checked == true){

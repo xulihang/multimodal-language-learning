@@ -41,7 +41,8 @@ function populateBothVoiceList(){
   console.log("populateBothVoiceList");
   loadVoices();
   populateVoiceList(sourceVoiceSelect);
-  populateVoiceList(targetVoiceSelect);    
+  populateVoiceList(targetVoiceSelect);
+  loadSettings();  
 }
 
 
@@ -174,8 +175,18 @@ function readNext() {
 
 pitch.onchange = function() {
   pitchValue.textContent = pitch.value;
+  saveCookie();
 }
 
 rate.onchange = function() {
   rateValue.textContent = rate.value;
+  saveCookie();
+}
+  
+sourceVoiceSelect.onchange = function() {
+    saveCookie();
+}
+
+targetVoiceSelect.onchange = function() {
+    saveCookie();
 }
