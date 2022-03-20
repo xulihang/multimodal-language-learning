@@ -11,8 +11,7 @@
         height: 100%;
     }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-    <script>eruda.init();</script>
+
 </head>
 
 <body>
@@ -294,6 +293,31 @@
             return;
         }
         drawPanel(panels[panelIndex]);
+        displayOnlyTextOfCurrentPanel();
+    }
+    
+    function displayOnlyTextOfCurrentPanel(){
+        console.log("displayOnlyTextOfCurrentPanel");
+        var images = data["images"];
+        console.log(images);
+        console.log(index);
+        var panels = images[index]["panels"];
+        var panel = panels[panelIndex];
+        console.log(panel);
+        var boxes = panel["boxes"];
+        console.log(boxes);
+        var ol = document.querySelector('.text-list');
+        if (ol) {
+            var items = ol.getElementsByClassName("text-box-item");
+            for (var i=0;i<items.length-1;i++ ){
+                var item = items[i];
+                if (boxes.indexOf(i)!=-1){
+                    item.style.display = "";
+                }else{
+                    item.style.display = "none";
+                }
+            }
+        }
     }
     </script>
     

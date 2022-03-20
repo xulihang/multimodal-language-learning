@@ -118,6 +118,12 @@ function readNext() {
         return;
       }
       var ul = items[currentIndex];
+      console.log(ul);
+      if (ul.style.display == "none") {
+          currentIndex = currentIndex + 1;
+          readNext();
+          return;
+      }
       var innerItems = ul.getElementsByTagName("li");
       var li;
       if (isSource) {
