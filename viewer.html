@@ -73,6 +73,8 @@
     var panelMode = false;
 
     document.getElementById("image").onload = imageLoaded;
+    document.getElementById("readsource").onchange = saveCookie;
+    document.getElementById("readtarget").onchange = saveCookie;
     getData();
     populateBothVoiceList();
     
@@ -203,6 +205,8 @@
         document.cookie = "pitch=" + pitch.value;
         document.cookie = "sourceEngine=" + sourceVoiceSelect.selectedIndex;
         document.cookie = "targetEngine=" +targetVoiceSelect.selectedIndex;
+        document.cookie = "readSource=" + document.getElementById("readsource").checked;
+        document.cookie = "readTarget=" + document.getElementById("readtarget").checked;
     }
     
     function getCookie(cname)
@@ -223,6 +227,8 @@
         var pPitch = getCookie("pitch");
         var selectedSourceEngineIndex = getCookie("sourceEngine");
         var selectedTargetEngineIndex = getCookie("targetEngine");
+        var readsource = getCookie("readSource");
+        var readtarget = getCookie("readTarget");
         console.log(pRate);
         if (pRate != "") {
             rate.value = pRate;
@@ -240,6 +246,17 @@
         
         if (selectedTargetEngineIndex != "") {
             targetVoiceSelect.selectedIndex = parseInt(selectedTargetEngineIndex);
+        }
+        if (readsource == "true") {
+            document.getElementById("readsource").checked = true;
+        }else{
+            document.getElementById("readsource").checked = false;
+        }
+        
+        if (readtarget == "" || readtarget == "true") {
+            document.getElementById("readtarget").checked = true;
+        }else{
+            document.getElementById("readtarget").checked = false;
         }
     }
     
