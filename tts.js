@@ -56,24 +56,28 @@ function speak(text, voice){
         return;
     }
     if (text !== '') {
-    var utterThis = new SpeechSynthesisUtterance(text);
-    utterThis.onend = function (event) {
-        console.log('SpeechSynthesisUtterance.onend');
+        var utterThis = new SpeechSynthesisUtterance(text);
+        utterThis.onend = function (event) {
+            console.log('SpeechSynthesisUtterance.onend');
+            if (playing == true) {
+              readNext();
+            }
+            
+        }
+        utterThis.onerror = function (event) {
+            console.error('SpeechSynthesisUtterance.onerror');
+        }
+        if (voice) {
+            utterThis.voice = voice;
+        }
+        utterThis.pitch = pitch.value;
+        utterThis.rate = rate.value;
+        synth.speak(utterThis);
+    } else{
         if (playing == true) {
           readNext();
         }
-        
     }
-    utterThis.onerror = function (event) {
-        console.error('SpeechSynthesisUtterance.onerror');
-    }
-    if (voice) {
-        utterThis.voice = voice;
-    }
-    utterThis.pitch = pitch.value;
-    utterThis.rate = rate.value;
-    synth.speak(utterThis);
-  }
 }
 
 startBtn.onclick = function(event) {
