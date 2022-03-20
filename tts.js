@@ -129,7 +129,10 @@ function readNext() {
     var ol = document.querySelector('.text-list');
     if (ol) {
       var items = ol.getElementsByClassName("text-box-item");
-      
+      if (noText(items) == true && getPanelMode() == "true") {
+          nextPanelAndStartSpeaking();
+          return;
+      }
       var ul;
       if (currentIndex<=items.length-1) {
         ul = items[currentIndex];
@@ -177,6 +180,16 @@ function readNext() {
     }
 }
 
+function noText(items){
+    for (var i=0;i<items.length;i++){
+        var ul = items[i];
+        if (ul.style.display == "") {
+            return false;
+        }
+    }
+    return true;
+}
+
 function loadSettings(){
     console.log("load settings");
     var pRate = getCookie("rate");
@@ -214,6 +227,18 @@ function loadSettings(){
     }else{
         document.getElementById("readtarget").checked = false;
     }
+}
+
+function getCookie(cname)
+{
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) 
+    {
+        var c = ca[i].trim();
+        if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+    }
+    return "";
 }
 
 pitch.onchange = function() {
