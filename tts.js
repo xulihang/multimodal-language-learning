@@ -130,7 +130,7 @@ function readNext() {
       if (currentIndex<=items.length-1) {
         ul = items[currentIndex];
       }
-      if ((ul != undefined && ul.style.display == "none") || currentIndex == items.length) {
+      if ((ul != undefined && ul.style.display == "none") || ul == undefined) {
           if (getPanelMode() == "true" && currentIndex > startPanelBoxIndex && startPanelBoxIndex != -1) {
               nextPanelAndStartSpeaking();
               console.log("stop");
@@ -173,6 +173,45 @@ function readNext() {
     }
 }
 
+function loadSettings(){
+    console.log("load settings");
+    var pRate = getCookie("rate");
+    var pPitch = getCookie("pitch");
+    var selectedSourceEngineIndex = getCookie("sourceEngine");
+    var selectedTargetEngineIndex = getCookie("targetEngine");
+    var readsource = getCookie("readSource");
+    var readtarget = getCookie("readTarget");
+    console.log(pRate);
+    if (pRate != "") {
+        rate.value = pRate;
+        rateValue.textContent = pRate;
+    }
+    
+    if (pPitch != "") {
+        pitch.value = pPitch;
+        pitchValue.textContent = pPitch;
+    }
+    
+    if (selectedSourceEngineIndex != "") {
+        sourceVoiceSelect.selectedIndex = parseInt(selectedSourceEngineIndex);
+    }
+    
+    if (selectedTargetEngineIndex != "") {
+        targetVoiceSelect.selectedIndex = parseInt(selectedTargetEngineIndex);
+    }
+    if (readsource == "true") {
+        document.getElementById("readsource").checked = true;
+    }else{
+        document.getElementById("readsource").checked = false;
+    }
+    
+    if (readtarget == "" || readtarget == "true") {
+        document.getElementById("readtarget").checked = true;
+    }else{
+        document.getElementById("readtarget").checked = false;
+    }
+}
+
 pitch.onchange = function() {
   pitchValue.textContent = pitch.value;
   saveCookie();
@@ -190,3 +229,5 @@ sourceVoiceSelect.onchange = function() {
 targetVoiceSelect.onchange = function() {
     saveCookie();
 }
+
+

@@ -221,44 +221,7 @@
         return "";
     }
     
-    function loadSettings(){
-        console.log("load settings");
-        var pRate = getCookie("rate");
-        var pPitch = getCookie("pitch");
-        var selectedSourceEngineIndex = getCookie("sourceEngine");
-        var selectedTargetEngineIndex = getCookie("targetEngine");
-        var readsource = getCookie("readSource");
-        var readtarget = getCookie("readTarget");
-        console.log(pRate);
-        if (pRate != "") {
-            rate.value = pRate;
-            rateValue.textContent = pRate;
-        }
-        
-        if (pPitch != "") {
-            pitch.value = pPitch;
-            pitchValue.textContent = pPitch;
-        }
-        
-        if (selectedSourceEngineIndex != "") {
-            sourceVoiceSelect.selectedIndex = parseInt(selectedSourceEngineIndex);
-        }
-        
-        if (selectedTargetEngineIndex != "") {
-            targetVoiceSelect.selectedIndex = parseInt(selectedTargetEngineIndex);
-        }
-        if (readsource == "true") {
-            document.getElementById("readsource").checked = true;
-        }else{
-            document.getElementById("readsource").checked = false;
-        }
-        
-        if (readtarget == "" || readtarget == "true") {
-            document.getElementById("readtarget").checked = true;
-        }else{
-            document.getElementById("readtarget").checked = false;
-        }
-    }
+    
     
     function onOriginalChanged(){
         var original = "no";
