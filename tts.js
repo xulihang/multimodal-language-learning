@@ -13,7 +13,8 @@ var rateValue = document.querySelector('.rate-value');
 var voices = [];
 var currentIndex = 0;
 var isSource = true;
-var playing = true;
+var playing = false;
+var startPanelBoxIndex = -1;
 
 function loadVoices(){
   var allVoices = synth.getVoices();
@@ -75,14 +76,23 @@ function speak(text, voice){
 }
 
 startBtn.onclick = function(event) {
+  startSpeaking();
+}
+
+function startSpeaking(){
   console.log("start");
   currentIndex = 0;
+  startPanelBoxIndex = -1;
   playing = true;
   isSource = true;
   readNext();
 }
 
 stopBtn.onclick = function(event) {
+  stopSpeaking();
+}
+
+function stopSpeaking(){
   console.log("stop");
   playing = false;
   synth.pause();
@@ -114,15 +124,24 @@ function readNext() {
     var ol = document.querySelector('.text-list');
     if (ol) {
       var items = ol.getElementsByClassName("text-box-item");
-      if (currentIndex>items.length-1) {
-        return;
+      
+      var ul;
+      if (currentIndex<=items.length-1) {
+        ul = items[currentIndex];
       }
-      var ul = items[currentIndex];
-      console.log(ul);
-      if (ul.style.display == "none") {
+      if ((ul != undefined && ul.style.display == "none") || currentIndex == items.length) {
+          if (getPanelMode() == "true" && currentIndex > startPanelBoxIndex && startPanelBoxIndex != -1) {
+              nextPanelAndStartSpeaking();
+              console.log("stop");
+              return;
+          }
           currentIndex = currentIndex + 1;
           readNext();
           return;
+      }else{
+          if (startPanelBoxIndex == -1) {
+              startPanelBoxIndex = currentIndex;
+          }
       }
       var innerItems = ul.getElementsByTagName("li");
       var li;

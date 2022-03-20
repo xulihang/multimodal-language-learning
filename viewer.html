@@ -71,6 +71,7 @@
     var index = 0;
     var panelIndex = -1;
     var panelMode = false;
+
     document.getElementById("image").onload = imageLoaded;
     getData();
     populateBothVoiceList();
@@ -86,6 +87,10 @@
                 data = JSON.parse(xhr.responseText);
                 loadImage(getPageIndex());
                 loadText(index);
+                
+                if (getQueryVariable("playing") == "true") {
+                    startSpeaking();
+                }
             }
         }
         xhr.send();
@@ -211,9 +216,9 @@
     function buildURL(page, original){
         var uniqueName = getQueryVariable("uniquename");
         if (uniqueName) {
-            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&uniquename=" + uniqueName + "&panelMode="+panelMode+ "&panelIndex="+panelIndex;
+            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&uniquename=" + uniqueName + "&panelMode="+panelMode+ "&panelIndex="+panelIndex+"&playing="+playing;
         }else{
-            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&panelMode="+panelMode+ "&panelIndex="+panelIndex;
+            return window.location.origin +window.location.pathname + "?page=" + page + "&original="+original + "&panelMode="+panelMode+ "&panelIndex="+panelIndex+"&playing="+playing;
         }
     }
     
@@ -277,10 +282,17 @@
     }
     
     function nextPanel(){
+        if (panelIndex == -1) {
+            panelIndex = 0;
+        }
         loadPanel(1);
     }
     
-    function loadPanel(offset){
+    function nextPanelAndStartSpeaking(){
+        loadPanel(1, true);
+    }
+    
+    function loadPanel(offset, speak){
         panelMode = true;
         document.getElementById("panelModeChk").checked = true;
         document.getElementById("image").style.display = "none";
@@ -295,8 +307,11 @@
             nextPage();
             return;
         }
-        drawPanel(panels[panelIndex]);
         displayOnlyTextOfCurrentPanel();
+        drawPanel(panels[panelIndex]);
+        if (speak == true) {
+            startSpeaking();
+        }
     }
     
     function displayOnlyTextOfCurrentPanel(){
