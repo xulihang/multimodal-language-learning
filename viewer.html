@@ -11,6 +11,8 @@
         height: 100%;
     }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
 </head>
 
 <body>
@@ -64,7 +66,7 @@
         </div>
         
     </form>
-
+    <script type="text/javascript" src="./tts.js"></script>
     <script type="text/javascript">
     var data;
     var index = 0;
@@ -72,6 +74,7 @@
     var panelMode = false;
     document.getElementById("image").onload = imageLoaded;
     getData();
+    populateBothVoiceList();
     
     function getData(){
         var url = getURL();
@@ -80,11 +83,10 @@
         xhr.onreadystatechange = function(){
             if(xhr.readyState === 4){
                 console.log(xhr.status);
-                console.log(xhr.responseText);
+                //console.log(xhr.responseText);
                 data = JSON.parse(xhr.responseText);
                 loadImage(getPageIndex());
                 loadText(index);
-                console.log(data);
             }
         }
         xhr.send();
@@ -141,8 +143,6 @@
     
     function loadText(offset){
         var images = data["images"];
-        console.log(images);
-        console.log(index);
         var sourceList = images[index]["source"];
         var targetList = images[index]["target"];
         var ol = document.createElement("ol");
@@ -194,7 +194,6 @@
     }
     
     function onOriginalChanged(){
-        console.log("changed.");
         var original = "no";
         if (document.getElementById("originalChk").checked == true){
             original = "yes";
@@ -297,7 +296,7 @@
         drawPanel(panels[panelIndex]);
     }
     </script>
-    <script type="text/javascript" src="./tts.js"></script>
+    
 </body>
 
 </html>

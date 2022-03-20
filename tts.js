@@ -18,9 +18,7 @@ var playing = true;
 function loadVoices(){
   var allVoices = synth.getVoices();
   for(i = 0; i < allVoices.length ; i++) {
-    if (allVoices[i].localService == true) {
-      voices.push(allVoices[i]);
-    }
+    voices.push(allVoices[i]);
   }
 }
 
@@ -30,10 +28,6 @@ function populateVoiceList(targetSelect) {
   for(i = 0; i < voices.length ; i++) {
     var option = document.createElement('option');
     option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
-    
-    if(voices[i].default) {
-      option.textContent += ' -- DEFAULT';
-    }
 
     option.setAttribute('data-lang', voices[i].lang);
     option.setAttribute('data-name', voices[i].name);
@@ -43,6 +37,7 @@ function populateVoiceList(targetSelect) {
 }
 
 function populateBothVoiceList(){
+  console.log("populateBothVoiceList");
   loadVoices();
   populateVoiceList(sourceVoiceSelect);
   populateVoiceList(targetVoiceSelect);    
