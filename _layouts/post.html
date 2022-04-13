@@ -17,7 +17,7 @@ layout: default
   		{% assign tags_content = "" %}
   		{% for post_tag in post.tags %}
   			{% capture tags_content_temp %}
-  				{{ tags_content }}<a href="{{ site.url }}{{ site.baseurl }}/{{ tagfile }}#{{ post_tag | slugify }}">#{{ post_tag }}</a>
+  				{{ tags_content }}<a href="{{ site.baseurl }}/{{ tagfile }}#{{ post_tag | slugify }}">#{{ post_tag }}</a>
   			{% endcapture %}
   			{% assign tags_content = tags_content_temp %}
   		{% endfor %}
@@ -30,7 +30,7 @@ layout: default
   </header>
   
   <div class="post-content" itemprop="articleBody">
-    <a href="{{ site.url }}{{ site.baseurl }}/viewer.html?uniquename={{ page.uniquename }}">查看漫画</a>
+    <a href="{{ site.baseurl }}/viewer.html?uniquename={{ page.uniquename }}">查看漫画</a>
     {{ content }}
   </div>
   
